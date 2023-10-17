@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.expensetracker.simpleexpense.model.TempDB;
 import com.expensetracker.simpleexpense.model.Transaction;
+import com.expensetracker.simpleexpense.service.TransactionService;
 import com.expensetracker.simpleexpense.service.UserService;
 
 @RequestMapping("/expensetracker/")
@@ -24,8 +24,8 @@ public class ExpenseController {
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    // private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
    
 
     @GetMapping(value = "/health")
@@ -33,13 +33,10 @@ public class ExpenseController {
         return "OK";
     }
   
-    @Cacheable(value = "allUserTransactions")
+    // @Cacheable(value = "allUserTransactions")
     @GetMapping(value = "transactions")
-    public ArrayList<Transaction> getAllTransactions(){
-
-        ArrayList<Transaction> transactions = TempDB.getDatabaseData();
-
-        return transactions;
+    public Object getAllTransactions(){
+        return transactionService.getAllTransactions();
     }
 
     //transaction based on user id
@@ -57,7 +54,7 @@ public class ExpenseController {
 
     @GetMapping("user/{userId}")
     public String userDetails(@PathVariable Long userId){
-        return userService.userExists(1l) ? "User Exists" : "UserNotFound";
+        return userService.userExists(userId) ? "User Exists" : "UserNotFound";
     }
 
 }
