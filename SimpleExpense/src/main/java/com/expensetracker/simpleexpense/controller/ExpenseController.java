@@ -92,7 +92,8 @@ public class ExpenseController {
         // Set the API key in the header
         HttpHeaders headers = new HttpHeaders();
         
-        headers.set("X-Api-Key", "i-just-deleted-it-bcz-you-can-see-it"); 
+        //TODO: securely fetch key
+        headers.set("X-Api-Key", System.getenv("prop")); 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         final String url = "https://api.api-ninjas.com/v1/randomuser";
