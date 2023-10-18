@@ -23,3 +23,9 @@ public class User {
     private String email;
     private Long phoneNumber;
 }
+
+// id
+// firstName
+// lastName
+// email
+// phoneNumber

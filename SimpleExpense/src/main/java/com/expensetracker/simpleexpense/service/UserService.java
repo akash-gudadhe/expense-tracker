@@ -1,7 +1,8 @@
 package com.expensetracker.simpleexpense.service;
 
-import org.springframework.stereotype.Service;
+import com.expensetracker.simpleexpense.model.User;
 
 public interface UserService {
-    public boolean userExists(Long userId);
+    public Object getUserDetails(Long userId);
+    public User registerUser(User user);
 }
