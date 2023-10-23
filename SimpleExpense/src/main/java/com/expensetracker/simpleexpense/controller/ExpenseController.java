@@ -71,8 +71,8 @@ public class ExpenseController {
         return userService.registerUser(user);
     } 
 
-    @GetMapping("random_api-user")
-    public String getRandomUserFromRandomAPI(){
+    @GetMapping("resttemplate")
+    public String restTemplate(){
         RestTemplate restTemplate = new RestTemplate();
 
         // Set the API key in the header
@@ -86,6 +86,19 @@ public class ExpenseController {
 
         // Make the request with the API key in the headers
         ResponseEntity<RandomUser> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, RandomUser.class);
+
+        // try{
+        //     Connection connectionDs1 = datasource.getConnection();
+        //     String sqlQuery = "SELECT * FROM Transaction";
+        //     PreparedStatement ps = connectionDs1.prepareStatement(sqlQuery);
+        //     ResultSet result = ps.executeQuery();
+
+        //     while(result.next()){
+        //         System.out.println(result.getLong("id"));
+        //     }
+        // }catch(SQLException e){
+        //     e.printStackTrace();
+        // }
         logger.warn(responseEntity.getBody().toString());
         return responseEntity.getBody().toString();
     }
