@@ -71,8 +71,8 @@ public class ExpenseController {
         return userService.registerUser(user);
     } 
 
-    @GetMapping("resttemplate")
-    public String restTemplate(){
+    @GetMapping("random-user")
+    public String getRandomUser(){
         RestTemplate restTemplate = new RestTemplate();
 
         // Set the API key in the header
