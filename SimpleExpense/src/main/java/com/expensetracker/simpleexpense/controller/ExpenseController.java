@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +26,7 @@ import com.expensetracker.simpleexpense.model.RandomUser;
 import com.expensetracker.simpleexpense.model.TempDB;
 import com.expensetracker.simpleexpense.model.Transaction;
 import com.expensetracker.simpleexpense.model.User;
+import com.expensetracker.simpleexpense.repository.UserRepository;
 import com.expensetracker.simpleexpense.service.TransactionService;
 import com.expensetracker.simpleexpense.service.UserService;
 
@@ -38,6 +40,17 @@ public class ExpenseController {
 
     @Autowired
     private TransactionService transactionService;
+
+     @Autowired
+    private UserRepository userRepository;
+
+    @QueryMapping
+    public User getUser(Long id) {
+        // Implement the logic to fetch a user by ID from your data source
+        User byId = userRepository.getById(id);
+        return (User) byId;
+        
+    }
 
     //TODO: make it secure
     // @Cacheable(value = "allUserTransactions")
